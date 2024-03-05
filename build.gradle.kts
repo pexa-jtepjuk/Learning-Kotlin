@@ -57,3 +57,19 @@ abstract class Fib : DefaultTask() {
         println(fibo)
     }
 }
+
+class ApplesPlugin : Plugin<Project> {
+    override fun apply(target: Project) {
+        target.tasks.register("apples") {
+            description = "A simple message"
+            group = "custom plugin"
+
+            doLast{
+                println("Hello world")
+            }
+        }
+    }
+}
+
+apply<ApplesPlugin>()
+
