@@ -20,15 +20,19 @@ kotlin {
     jvmToolchain(17)
 }
 
+val fibCount: String by project
+
+val kotlinCodeStyle = project.property("kotlin.code.style") as String
+
 tasks.register("fib"){
     description = "Calculate Fibo"
 
-    val count = properties["count"]?.toString()?.toInt() ?: 10
+    println("Kotlin Code Style is $kotlinCodeStyle")
 
     doLast {
         val fibo = generateSequence(1 to 1) { it.second to it.first + it.second }
             .map { it.first }
-            .take(count)
+            .take(fibCount.toInt())
             .toList()
         println(fibo)
     }
