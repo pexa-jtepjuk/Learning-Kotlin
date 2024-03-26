@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.21"
+    id("com.github.spotbugs") version "6.0.7"
 }
 
 group = "org.example"
@@ -44,6 +45,12 @@ tasks.register<Fib>("fib2"){
     )
 }
 
+tasks.register("qualityCheck") {                       // qualityCheck task
+    description = "Runs checks (excluding tests)."      // description
+    dependsOn(tasks.classes, tasks.spotbugsMain)        // dependencies
+    dependsOn(tasks.testClasses, tasks.spotbugsTest)    // dependencies
+}
+
 abstract class Fib : DefaultTask() {
     @get:Input
     abstract val count : Property<Int>
@@ -76,4 +83,19 @@ class ApplesPlugin : Plugin<Project> {
 }
 
 apply<ApplesPlugin>()
+
+
+
+val myBuildGroup = "my app build"               // Create a group name
+
+tasks.register<TaskReportTask>("tasksAll") {    // Register the tasksAll task
+    group = myBuildGroup
+    description = "Show additional tasks."
+    setShowDetail(true)
+}
+
+tasks.named<TaskReportTask>("tasks") {          // Move all existing tasks to the group
+    displayGroup = myBuildGroup
+}
+
 
