@@ -86,8 +86,6 @@ class ApplesPlugin : Plugin<Project> {
 
 apply<ApplesPlugin>()
 
-
-
 val myBuildGroup = "my app build"               // Create a group name
 
 tasks.register<TaskReportTask>("tasksAll") {    // Register the tasksAll task
