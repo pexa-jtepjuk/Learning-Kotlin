@@ -47,10 +47,10 @@ tasks.register<Fib>("fib2"){
     )
 }
 
-tasks.register("qualityCheck") {                       // qualityCheck task
-    description = "Runs checks (excluding tests)."      // description
-    dependsOn(tasks.classes, tasks.spotbugsMain)        // dependencies
-    dependsOn(tasks.testClasses, tasks.spotbugsTest)    // dependencies
+tasks.register("qualityCheck") {                       
+    description = "Runs checks (excluding tests)."      
+    dependsOn(tasks.classes, tasks.spotbugsMain)        
+    dependsOn(tasks.testClasses, tasks.spotbugsTest)   
 }
 
 abstract class Fib : DefaultTask() {
@@ -86,15 +86,15 @@ class ApplesPlugin : Plugin<Project> {
 
 apply<ApplesPlugin>()
 
-val myBuildGroup = "my app build"               // Create a group name
+val myBuildGroup = "my app build"               
 
-tasks.register<TaskReportTask>("tasksAll") {    // Register the tasksAll task
+tasks.register<TaskReportTask>("tasksAll") {    
     group = myBuildGroup
     description = "Show additional tasks."
     setShowDetail(true)
 }
 
-tasks.named<TaskReportTask>("tasks") {          // Move all existing tasks to the group
+tasks.named<TaskReportTask>("tasks") {          
     displayGroup = myBuildGroup
 }
 
